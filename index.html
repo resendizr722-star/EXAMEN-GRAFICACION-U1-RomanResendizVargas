@@ -1,81 +1,175 @@
 <!DOCTYPE html>
+<!-- 
+    Documento HTML5
+    Proyecto: Selva Geométrica
+    Descripción: Visualización artística de un camaleón geométrico
+    utilizando la API Canvas 2D y Bootstrap 5.
+-->
+
 <html lang="es">
 <head>
+    <!-- Configuración de codificación de caracteres -->
     <meta charset="UTF-8">
+
+    <!-- Configuración responsive para dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Selva Geométrica</title>
+
+    <!-- Título mostrado en la pestaña del navegador -->
+    <title>Selva Geométrica</title>
     
+    <!-- Favicon del proyecto -->
+    <!-- Icono mostrado en la pestaña del navegador -->
     <link rel="icon" type="image/png" href="./assets/img/fav_icon.png">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Framework Bootstrap 5 para diseño responsivo -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+          rel="stylesheet">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <!-- Importación de tipografías desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@500&display=swap" 
+          rel="stylesheet">
     
+    <!-- Hoja de estilos personalizada del proyecto -->
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
+
 <body>
 
+    <!-- ========================================================= -->
+    <!-- PANTALLA DE INTRODUCCIÓN                                 -->
+    <!-- Se muestra al cargar la página antes de revelar el canvas -->
+    <!-- ========================================================= -->
     <div id="introScreen" class="intro-screen">
         <div class="intro-content text-center">
             <h1 class="intro-title">Explora la Selva Geométrica</h1>
-            <p class="intro-subtitle">Un mosaico de adaptación generado con la API Canvas 2D</p>
-            <button id="enterBtn" class="btn btn-lg enter-btn">Revelar Camaleón</button>
+            <p class="intro-subtitle">
+                Un mosaico de adaptación generado con la API Canvas 2D
+            </p>
+            <!-- Botón que activa la transición hacia el contenido principal -->
+            <button id="enterBtn" class="btn btn-lg enter-btn">
+                Revelar Camaleón
+            </button>
         </div>
     </div>
 
+    <!-- ========================================================= -->
+    <!-- BARRA DE NAVEGACIÓN                                      -->
+    <!-- ========================================================= -->
     <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
         <div class="container">
-            <a class="navbar-brand theatrical-title" href="#">El Arte de Adaptarse</a>
+            <!-- Título principal del sitio -->
+            <a class="navbar-brand theatrical-title" href="#">
+                El Arte de Adaptarse
+            </a>
         </div>
     </nav>
 
+    <!-- ========================================================= -->
+    <!-- SECCIÓN PRINCIPAL                                         -->
+    <!-- Contiene el canvas dinámico y la imagen de referencia     -->
+    <!-- ========================================================= -->
     <div class="container-fluid main-section position-relative">
         
+        <!-- Frase flotante dinámica (controlada por JS si aplica) -->
         <div id="floatingPhrase" class="floating-phrase"></div>
 
+        <!-- Fila principal con sistema de grid Bootstrap -->
         <div class="row g-4 align-items-center justify-content-center content-wrapper px-4">
             
+            <!-- ===================== -->
+            <!-- COLUMNA DEL CANVAS    -->
+            <!-- ===================== -->
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                 <div class="display-card canvas-card animatable-card">
-                    <h2 class="section-title">Camaleón Dinámico (API 2D)</h2>
+                    
+                    <!-- Título de la sección -->
+                    <h2 class="section-title">
+                        Camaleón Dinámico (API 2D)
+                    </h2>
+
+                    <!-- Contenedor responsivo del canvas -->
                     <div class="canvas-container">
-                        <canvas id="chaosCanvas" width="1000" height="700"></canvas>
+                        
+                        <!-- 
+                            Lienzo HTML5 donde se dibuja el camaleón
+                            mediante JavaScript usando la API Canvas 2D.
+                            Tamaño base: 1000x700 (escalado dinámicamente).
+                        -->
+                        <canvas id="chaosCanvas" 
+                                width="1000" 
+                                height="700">
+                        </canvas>
+
                     </div>
                 </div>
             </div>
 
+            <!-- ===================== -->
+            <!-- COLUMNA IMAGEN REF    -->
+            <!-- ===================== -->
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                 <div class="display-card image-card animatable-card">
-                    <h2 class="section-title">Concepto de Referencia</h2>
+                    
+                    <h2 class="section-title">
+                        Concepto de Referencia
+                    </h2>
+
+                    <!-- Imagen base usada como inspiración visual -->
                     <div class="img-wrapper">
-                        <img src="./assets/img/camaleon_Referencia.png" class="img-fluid original-image" alt="Referencia Visual">
+                        <img src="./assets/img/camaleon_Referencia.png"
+                             class="img-fluid original-image"
+                             alt="Referencia Visual del Camaleón">
                     </div>
                 </div>
             </div>
 
         </div>
 
+        <!-- ========================================================= -->
+        <!-- SECCIÓN FILOSÓFICA / DESCRIPTIVA                          -->
+        <!-- ========================================================= -->
         <div class="row justify-content-center mt-5">
             <div class="col-lg-8 text-center philosophy-section">
-                <h3 class="section-title">La Estética del Cambio</h3>
+                <h3 class="section-title">
+                    La Estética del Cambio
+                </h3>
                 <p>
-                    La naturaleza se organiza en patrones geométricos. En esta selva, cada faceta 
-                    es una pieza de un rompecabezas matemático diseñado con la API Canvas. 
+                    La naturaleza se organiza en patrones geométricos.
+                    En esta selva, cada faceta es una pieza de un 
+                    rompecabezas matemático diseñado con la API Canvas.
                     Adaptarse no es esconderse, es convertirse.
                 </p>
             </div>
         </div>
+
     </div>
 
+    <!-- ========================================================= -->
+    <!-- PIE DE PÁGINA                                             -->
+    <!-- Información académica del proyecto                        -->
+    <!-- ========================================================= -->
     <footer class="footer text-center mt-auto">
         <div class="container py-3">
-            <p>Programador:Roman Resendiz Vargas| Ingeniería en Sistemas Computacionales</p>
-            <p>M.C Víctor Manuel Pinedo Fernández - Graficación</p>
+            <p>
+                Programador: Roman Resendiz Vargas |
+                Ingeniería en Sistemas Computacionales
+            </p>
+            <p>
+                M.C Víctor Manuel Pinedo Fernández - Graficación
+            </p>
         </div>
     </footer>
 
+    <!-- ========================================================= -->
+    <!-- SCRIPTS                                                   -->
+    <!-- ========================================================= -->
+
+    <!-- Bootstrap JS (componentes interactivos) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- Archivo JavaScript principal del proyecto -->
+    <!-- Contiene la lógica del Canvas y animaciones -->
     <script src="./assets/js/main.js"></script>
+
 </body>
 </html>

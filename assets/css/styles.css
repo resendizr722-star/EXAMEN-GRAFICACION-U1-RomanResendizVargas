@@ -1,73 +1,88 @@
+/**
+ * HOJA DE ESTILOS: TEATRO DEL CAMALEÓN
+ * Define la estética Dark Mode, tipografías teatrales y las transiciones 
+ * interactivas de las tarjetas y la pantalla de carga.
+ */
+
 /* --- ESTILOS GENERALES --- */
+/* Reseteo básico y configuración del "lienzo" principal de la página web */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
-    background-color: #121212;
-    color: #e0e0e0;
-    font-family: 'Playfair Display', serif;
-    overflow-x: hidden;
+    background-color: #121212; /* Fondo oscuro profundo para resaltar los colores Pop Art */
+    color: #e0e0e0; /* Texto principal en gris claro para reducir la fatiga visual */
+    font-family: 'Playfair Display', serif; /* Tipografía principal elegante para lectura */
+    overflow-x: hidden; /* Evita el scroll horizontal accidental */
 }
 
 /* --- NAVBAR --- */
+/* Barra de navegación superior */
 .custom-navbar {
-    background-color: #1a1a1a;
-    border-bottom: 2px solid #4CAF50;
+    background-color: #1a1a1a; /* Tono ligeramente más claro que el fondo para separar secciones */
+    border-bottom: 2px solid #4CAF50; /* Línea de acento verde que unifica el tema selvático */
     padding: 0.8rem 1rem; /* más compacto */
 }
 
+/* Título de la marca en la barra de navegación */
 .theatrical-title {
-    font-family: 'Cinzel', serif;
+    font-family: 'Cinzel', serif; /* Tipografía de impacto para títulos (estilo cine/teatro) */
     font-size: 1.6rem; /* ligeramente menor */
-    color: #4CAF50 !important;
+    color: #4CAF50 !important; /* Fuerza el color verde por encima de estilos de Bootstrap */
 }
 
 /* --- FOOTER --- */
+/* Pie de página con créditos */
 .footer {
     background-color: #1a1a1a;
     color: #aaa;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Separador sutil translúcido */
     font-size: 0.85rem;
     padding: 15px 0;
     margin-top: 20px; /* mucho más cerca */
 }
 
 /* --- CONTENIDO PRINCIPAL --- */
+/* Contenedor que abraza a las tarjetas del canvas y la imagen */
 .content-wrapper {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     position: relative;
-    z-index: 1;
+    z-index: 1; /* Asegura que el contenido esté por encima de posibles elementos de fondo */
 }
 
 /* --- TARJETAS --- */
+/* Estructura base para los contenedores del Canvas y la Imagen de Referencia */
 .display-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.03); /* Efecto cristalino (Glassmorphism) muy sutil */
     padding: 20px; /* reducido */
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.3, 1);
+    border-radius: 18px; /* Bordes redondeados modernos */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Borde translúcido para dar volumen */
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.3, 1); /* Transición fluida para los efectos de hover */
     position: relative;
     height: auto;
 }
 
+/* Títulos dentro de las tarjetas */
 .section-title {
     color: #fff;
     font-family: 'Cinzel', serif;
     margin-bottom: 1rem; /* más compacto */
     font-size: 1.3rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Sombra para despegar el texto del fondo */
 }
 
 /* --- CANVAS --- */
+/* Ajuste del área de dibujo generada por JavaScript */
 .canvas-container canvas {
-    width: 100%;
-    height: auto !important;
+    width: 100%; /* Hace que el canvas sea responsivo al tamaño de su contenedor */
+    height: auto !important; /* Mantiene la proporción del dibujo */
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6); /* Sombra profunda para simular que el lienzo flota */
 }
 
 /* --- IMAGEN REFERENCIA --- */
+/* Ajuste de la imagen estática para que coincida visualmente con el Canvas */
 .original-image {
     width: 100%;
     border-radius: 12px;
@@ -75,64 +90,73 @@ body, html {
 }
 
 /* --- HOVER TARJETAS --- */
+/* Efecto de levitación cuando el cursor pasa sobre una tarjeta */
 .animatable-card:hover {
-    transform: translateY(-10px) scale(1.02); /* menos exagerado */
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 20px 40px rgba(76, 175, 80, 0.25);
-    border-color: #4CAF50;
+    transform: translateY(-10px) scale(1.02); /* menos exagerado - Sube y se acerca ligeramente */
+    background: rgba(255, 255, 255, 0.06); /* Se ilumina un poco el fondo */
+    box-shadow: 0 20px 40px rgba(76, 175, 80, 0.25); /* Sombra difusa verde (Glow effect) */
+    border-color: #4CAF50; /* El borde se pinta del verde de acento */
 }
 
+/* Iluminación del título al hacer hover en la tarjeta */
 .animatable-card:hover .section-title {
-    text-shadow: 0 0 8px #4CAF50;
+    text-shadow: 0 0 8px #4CAF50; /* Resplandor de neón en el texto */
 }
 
+/* Efecto de enfoque cruzado: Si se hace hover en una tarjeta, la otra se difumina */
 .content-wrapper:has(.animatable-card:hover) 
 .animatable-card:not(:hover) {
-    opacity: 0.5;
-    filter: blur(1px) grayscale(0.3);
-    transform: scale(0.99);
+    opacity: 0.5; /* Oscurece la tarjeta no seleccionada */
+    filter: blur(1px) grayscale(0.3); /* Le quita color y nitidez */
+    transform: scale(0.99); /* La empuja ligeramente hacia atrás */
 }
 
 /* --- SECCIÓN FILOSÓFICA --- */
+/* Contenedor del texto explicativo inferior */
 .philosophy-section {
     padding: 30px 15px; /* mucho más compacto */
     background: rgba(255, 255, 255, 0.02);
     border-radius: 12px;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem; /* casi pegado al footer */
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
+    opacity: 0; /* Oculto por defecto para animar su entrada con JS */
+    transform: translateY(30px); /* Desplazado hacia abajo por defecto */
+    transition: all 0.8s ease-out; /* Velocidad de la animación de entrada */
 }
 
+/* Clase añadida dinámicamente por JS (Intersection Observer/Scroll) para hacerla aparecer */
 .philosophy-section.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
 /* --- INTRO SCREEN --- */
+/* Pantalla completa (Splash Screen) que cubre toda la interfaz al cargar la página */
 .intro-screen {
-    position: fixed;
-    inset: 0;
+    position: fixed; /* Fijo respecto a la ventana del navegador */
+    inset: 0; /* Atajo para top:0, right:0, bottom:0, left:0 */
     background-color: #121212;
     color: white;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s ease;
+    z-index: 1000; /* Asegura que esté por encima de TODO el contenido */
+    display: flex; /* Flexbox para centrado perfecto */
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    transition: opacity 0.5s ease; /* Transición suave cuando JS cambie la opacidad a 0 */
 }
 
+/* Restricción de anchura para el contenido de la introducción */
 .intro-content {
     max-width: 500px;
 }
 
+/* Estilo del título principal de la pantalla de introducción */
 .intro-title { 
     font-family: 'Cinzel', serif; 
     font-size: 2.5rem; 
     color: #4CAF50; 
 }
 
+/* Botón disparador de la aplicación */
 .enter-btn { 
     background-color: #4CAF50; 
     color: white; 
@@ -140,16 +164,18 @@ body, html {
     padding: 12px 25px; 
 }
 
+/* Cambio de color interactivo para el botón */
 .enter-btn:hover { 
-    background-color: #388E3C; 
+    background-color: #388E3C; /* Un verde ligeramente más oscuro */
 }
 
 /* --- FRASE FLOTANTE --- */
+/* Texto aleatorio inyectado por JS en la parte superior central */
 .floating-phrase { 
     position: absolute; 
     top: 6%; 
     left: 50%; 
-    transform: translateX(-50%); 
+    transform: translateX(-50%); /* Técnica estándar para centrar elementos absolutos */
     font-style: italic; 
     color: #aaa; 
     font-size: 0.9rem;

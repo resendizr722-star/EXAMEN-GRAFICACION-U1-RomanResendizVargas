@@ -90,6 +90,152 @@ function drawApp(){
     const ctx=canvas.getContext("2d");
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
+    // ---------- FONDO SELVA GEOMÉTRICA ----------
+    // ---------- FONDO SELVA TROPICAL PROFUNDA ----------
+
+// Fondo profundo degradado vertical
+const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
+bg.addColorStop(0, "#0d2216");
+bg.addColorStop(0.4, "#0a1a12");
+bg.addColorStop(1, "#050a07");
+
+ctx.fillStyle = bg;
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// Luz superior filtrada
+const jungleLight = ctx.createRadialGradient(
+    canvas.width * 0.2,
+    canvas.height * 0.1,
+    0,
+    canvas.width * 0.2,
+    canvas.height * 0.1,
+    800
+);
+jungleLight.addColorStop(0, "rgba(180,255,200,0.15)");
+jungleLight.addColorStop(1, "rgba(0,0,0,0)");
+
+ctx.fillStyle = jungleLight;
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// Ramas gruesas desde bordes
+for (let i = 0; i < 6; i++) {
+
+    ctx.beginPath();
+    ctx.lineWidth = 20 + Math.random() * 20;
+    ctx.strokeStyle = "rgba(40,25,15,0.7)";
+    ctx.lineCap = "round";
+
+    const startY = Math.random() * canvas.height;
+    ctx.moveTo(0, startY);
+
+    ctx.bezierCurveTo(
+        canvas.width * 0.3, startY - 150,
+        canvas.width * 0.6, startY + 150,
+        canvas.width, startY - 50
+    );
+
+    ctx.stroke();
+}
+
+// Hojas grandes desde los bordes
+for (let i = 0; i < 18; i++) {
+
+    const side = Math.random() < 0.5 ? 0 : canvas.width;
+    const y = Math.random() * canvas.height;
+    const size = 150 + Math.random() * 200;
+
+    ctx.beginPath();
+
+    ctx.moveTo(side, y);
+    ctx.quadraticCurveTo(
+        side === 0 ? size : canvas.width - size,
+        y - size,
+        side === 0 ? size * 1.2 : canvas.width - size * 1.2,
+        y
+    );
+
+    ctx.quadraticCurveTo(
+        side === 0 ? size : canvas.width - size,
+        y + size,
+        side,
+        y
+    );
+
+    ctx.closePath();
+
+    const leafGrad = ctx.createLinearGradient(
+        side,
+        y - size,
+        side === 0 ? size : canvas.width - size,
+        y + size
+    );
+
+    leafGrad.addColorStop(0, "rgba(46,125,50,0.35)");
+    leafGrad.addColorStop(1, "rgba(20,60,30,0.15)");
+
+    ctx.fillStyle = leafGrad;
+    ctx.fill();
+}
+
+// Hojas pequeñas difusas de fondo
+for (let i = 0; i < 25; i++) {
+
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    const size = 60 + Math.random() * 120;
+
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.quadraticCurveTo(x + size * 0.5, y - size, x + size, y);
+    ctx.quadraticCurveTo(x + size * 0.5, y + size * 0.6, x, y);
+    ctx.closePath();
+
+    const leafGrad = ctx.createRadialGradient(x, y, 0, x, y, size);
+    leafGrad.addColorStop(0, "rgba(50,150,80,0.15)");
+    leafGrad.addColorStop(1, "rgba(0,0,0,0)");
+
+    ctx.fillStyle = leafGrad;
+    ctx.fill();
+}
+
+    // Luz filtrada
+    for(let i=0;i<6;i++){
+        const light=ctx.createRadialGradient(
+            Math.random()*canvas.width,
+            Math.random()*canvas.height*0.5,
+            0,
+            Math.random()*canvas.width,
+            Math.random()*canvas.height*0.5,
+            300
+        );
+
+        light.addColorStop(0,"rgba(120,255,180,0.07)");
+        light.addColorStop(1,"rgba(0,0,0,0)");
+
+        ctx.fillStyle=light;
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+
+    // Hojas abstractas
+    for(let i=0;i<10;i++){
+        const x=Math.random()*canvas.width;
+        const y=Math.random()*canvas.height;
+        const size=80+Math.random()*120;
+
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+        ctx.quadraticCurveTo(x+size*0.5,y-size,x+size,y);
+        ctx.quadraticCurveTo(x+size*0.5,y+size*0.6,x,y);
+        ctx.closePath();
+
+        const leafGrad=ctx.createLinearGradient(x,y-size,x+size,y+size);
+        leafGrad.addColorStop(0,"rgba(46,125,50,0.12)");
+        leafGrad.addColorStop(1,"rgba(27,94,32,0.05)");
+
+        ctx.fillStyle=leafGrad;
+        ctx.fill();
+    }
+
     // ---------- DIBUJAR CAMALEÓN ----------
 
     chameleonModel.forEach(part=>{
@@ -97,6 +243,82 @@ function drawApp(){
         // Detectar y dibujar el ojo con tratamiento especial
         const isEyeCenter = (part.type === 'circle' && part.x === 190 && part.y === 350);
 
+        if(isEyeCenter){
+            // Solo ejecutar una vez por centro (cuando r sea el mayor, r=55)
+            if(part.r === 55){
+                // ojo externo (esclerótica) con ligero gradiente
+                ctx.beginPath();
+                ctx.arc(190,350,55,0,Math.PI*2);
+                const sclGrad = ctx.createRadialGradient(190-12,350-10,10,190,350,55);
+                sclGrad.addColorStop(0,"#FFFFFF");
+                sclGrad.addColorStop(0.6,"#FFF9C4");
+                sclGrad.addColorStop(1,adjustColor('#FDD835', -10));
+                ctx.fillStyle = sclGrad;
+                ctx.fill();
+
+                // contorno negro grueso pop-art
+                ctx.strokeStyle = "#000";
+                ctx.lineWidth = 6;
+                ctx.lineJoin = "round";
+                ctx.lineCap = "round";
+                ctx.stroke();
+
+                // iris (r=30) con gradiente radial
+                ctx.beginPath();
+                ctx.arc(190,350,30,0,Math.PI*2);
+                const irisGrad = ctx.createRadialGradient(190-6,350-4,2,190,350,30);
+                irisGrad.addColorStop(0,"#FFFFFF");
+                irisGrad.addColorStop(0.06, adjustColor('#4CAF50', 40)); // pequeño brillo central
+                irisGrad.addColorStop(0.35, '#4CAF50');
+                irisGrad.addColorStop(1, adjustColor('#4CAF50', -40));
+                ctx.fillStyle = irisGrad;
+                ctx.fill();
+
+                // trazo oscuro fino alrededor del iris para separación
+                ctx.strokeStyle = adjustColor('#4CAF50', -70);
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // pupila (r=12) negra con brillo
+                ctx.beginPath();
+                ctx.arc(190,350,12,0,Math.PI*2);
+                ctx.fillStyle = "#0B0B0B";
+                ctx.fill();
+
+                // brillo especular en la pupila
+                ctx.beginPath();
+                ctx.fillStyle = "rgba(255,255,255,0.9)";
+                ctx.arc(184,344,4,0,Math.PI*2);
+                ctx.fill();
+
+                // pequeño reflejo secundario
+                ctx.beginPath();
+                ctx.fillStyle = "rgba(255,255,255,0.18)";
+                ctx.arc(198,356,6,0,Math.PI*2);
+                ctx.fill();
+
+                // triángulo decorativo (mantenerlo pero con contorno)
+                const tri = chameleonModel.find(p => p.type === 'poly' && p.pts && p.pts.length === 3 && p.pts[0][0] === 170 && p.pts[0][1] === 310);
+                if(tri){
+                    ctx.beginPath();
+                    ctx.moveTo(tri.pts[0][0], tri.pts[0][1]);
+                    tri.pts.forEach((pt,i)=>{ if(i>0) ctx.lineTo(pt[0], pt[1]); });
+                    ctx.closePath();
+                    // relleno suave
+                    const triGrad = ctx.createLinearGradient(170,280,210,320);
+                    triGrad.addColorStop(0, adjustColor(tri.color, 20));
+                    triGrad.addColorStop(1, adjustColor(tri.color, -10));
+                    ctx.fillStyle = triGrad;
+                    ctx.fill();
+                    // contorno negro fino
+                    ctx.strokeStyle = "#000";
+                    ctx.lineWidth = 4;
+                    ctx.stroke();
+                }
+            }
+            // Saltar el resto del flujo para las otras circles del ojo (ya dibujadas)
+            return;
+        }
 
         // Flujo normal para todas las demás piezas
         ctx.beginPath();
